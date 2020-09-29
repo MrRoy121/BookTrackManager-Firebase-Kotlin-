@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+
+    <item
+        android:id="@+id/Book"
+        android:title="Book List" >
+        <menu>
+            <item
+                android:id="@+id/c8"
+                android:title="All Books" />
+
+            <item
+                android:id="@+id/c1"
+                android:title="Comedy" />
+
+            <item
+                android:id="@+id/c2"
+                android:title="Thriller" />
+
+            <item
+                android:id="@+id/c3"
+                android:title="Horror" />
+
+            <item
+                android:id="@+id/c4"
+                android:title="Biography" />
+
+            <item
+                android:id="@+id/c5"
+                android:title="Cooking Book" />
+
+            <item
+                android:id="@+id/c6"
+                android:title="Science Fiction" />
+            <item
+                android:id="@+id/c7"
+                android:title="Romantic" />
+
+
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/ongoin"
+        android:title="On Going" />
+    <item
+        android:id="@+id/wish"
+        android:title="Wishlist" />
+
+    <item
+        android:id="@+id/lend"
+        android:title="Lend Books" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
+
+
+</menu>

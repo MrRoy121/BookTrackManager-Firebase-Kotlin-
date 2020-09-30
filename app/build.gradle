@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.googleServices)
 }
+
 
 android {
     namespace 'com.example.booktrackmanager'
@@ -56,6 +58,10 @@ dependencies {
     implementation libs.androidx.ui.graphics
     implementation libs.androidx.ui.tooling.preview
     implementation libs.androidx.material3
+    implementation libs.play.services.tasks
+    implementation libs.androidx.appcompat
+    implementation libs.firebase.firestore.ktx
+    implementation libs.firebase.auth.ktx
     testImplementation libs.junit
     implementation libs.firebase.auth
     implementation libs.firebase.firestore

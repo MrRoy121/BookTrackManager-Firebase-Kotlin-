@@ -4,20 +4,15 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AddBook : AppCompatActivity() {
 
@@ -41,7 +36,9 @@ class AddBook : AppCompatActivity() {
 
         findViewById<View>(R.id.menu).setOnClickListener {
             val navDrawer = findViewById<DrawerLayout>(R.id.my_drawer_layout)
-            if (!navDrawer.isDrawerOpen(Gravity.LEFT)) navDrawer.openDrawer(Gravity.LEFT) else navDrawer.closeDrawer(Gravity.LEFT)
+            if (!navDrawer.isDrawerOpen(Gravity.LEFT)) navDrawer.openDrawer(Gravity.LEFT) else navDrawer.closeDrawer(
+                Gravity.LEFT
+            )
         }
 
         findViewById<Button>(R.id.button).setOnClickListener {
@@ -59,21 +56,22 @@ class AddBook : AppCompatActivity() {
         log = ArrayList()
         customAdapter = Adapter(this@AddBook, names, log)
 
-        fs.collection("users").whereEqualTo("Email", i.getStringExtra("User")).get().addOnSuccessListener { q ->
-            if (!q.isEmpty) {
-                for (d in q) {
-                    uid = d.id
-                }
-                fs.collection("books").get().addOnSuccessListener { documentSnapshot ->
-                    if (!documentSnapshot.isEmpty) {
-                        for (d in documentSnapshot) {
-                            names.add(d.getString("Title")!!)
-                            log.add(d.getBoolean("Stats")!!)
+        fs.collection("users").whereEqualTo("Email", i.getStringExtra("User")).get()
+            .addOnSuccessListener { q ->
+                if (!q.isEmpty) {
+                    for (d in q) {
+                        uid = d.id
+                    }
+                    fs.collection("books").get().addOnSuccessListener { documentSnapshot ->
+                        if (!documentSnapshot.isEmpty) {
+                            for (d in documentSnapshot) {
+                                names.add(d.getString("Title")!!)
+                                log.add(d.getBoolean("Stats")!!)
+                            }
                         }
                     }
                 }
             }
-        }
 
         simpleGrid.setOnItemClickListener { parent, view, position, id ->
             val dialog = Dialog(this@AddBook)
@@ -84,26 +82,29 @@ class AddBook : AppCompatActivity() {
             val buy = dialog.findViewById<TextView>(R.id.date)
             val e = dialog.findViewById<EditText>(R.id.text2)
 
-            fs.collection("books").whereEqualTo("Title", names[position]).get().addOnSuccessListener { q ->
-                for (d in q) {
-                    tit.text = d.getString("Title")
-                    aut.text = d.getString("Author")
-                    pri.text = d.getString("Price")
-                    buy.text = d.getString("Date")
+            fs.collection("books").whereEqualTo("Title", names[position]).get()
+                .addOnSuccessListener { q ->
+                    for (d in q) {
+                        tit.text = d.getString("Title")
+                        aut.text = d.getString("Author")
+                        pri.text = d.getString("Price")
+                        buy.text = d.getString("Date")
+                    }
                 }
-            }
 
-            fs.collection("page").document(uid).collection("book").document(names[position]).get().addOnSuccessListener { d ->
-                if (d.exists()) {
-                    e.setText(d.getString("page no"))
+            fs.collection("page").document(uid).collection("book").document(names[position]).get()
+                .addOnSuccessListener { d ->
+                    if (d.exists()) {
+                        e.setText(d.getString("page no"))
+                    }
                 }
-            }
 
             val userx = HashMap<String, Any>()
             val dialogButton = dialog.findViewById<Button>(R.id.OK)
             dialogButton.setOnClickListener {
                 if (e.text.toString().isNotEmpty()) {
-                    fs.collection("books").whereEqualTo("Title", names[position]).whereEqualTo("Username", uid).get().addOnSuccessListener { q ->
+                    fs.collection("books").whereEqualTo("Title", names[position])
+                        .whereEqualTo("Username", uid).get().addOnSuccessListener { q ->
                         for (d in q) {
                             sss = d.id
                             userx["Username"] = uid
@@ -123,23 +124,26 @@ class AddBook : AppCompatActivity() {
                     val user = HashMap<String, Any>()
                     user["page no"] = e.text.toString()
                     fs.collection("Ongoingbooks").add(user1)
-                    fs.collection("page").document(uid).collection("book").document(names[position]).set(user)
+                    fs.collection("page").document(uid).collection("book").document(names[position])
+                        .set(user)
                     dialog.dismiss()
                 } else {
-                    Toast.makeText(applicationContext, "Add A Number To Add", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Add A Number To Add", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
             val dialogButto = dialog.findViewById<Button>(R.id.delete)
             dialogButto.text = "Completed"
             dialogButto.setOnClickListener {
-                fs.collection("books").whereEqualTo("Title", names[position]).get().addOnSuccessListener { queryDocumentSnapshots ->
-                    for (D in queryDocumentSnapshots) {
-                        fs.collection("books").document(D.id).delete()
-                        dialog.dismiss()
-                        Toast.makeText(applicationContext, "Deleted", Toast.LENGTH_SHORT).show()
+                fs.collection("books").whereEqualTo("Title", names[position]).get()
+                    .addOnSuccessListener { queryDocumentSnapshots ->
+                        for (D in queryDocumentSnapshots) {
+                            fs.collection("books").document(D.id).delete()
+                            dialog.dismiss()
+                            Toast.makeText(applicationContext, "Deleted", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
             }
             dialog.show()
         }
@@ -180,54 +184,63 @@ class AddBook : AppCompatActivity() {
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c8 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "book")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c1 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Comedy")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c2 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Thriller")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c3 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Horror")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c4 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Biography")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c5 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Cooking Book")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c6 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Science Fiction")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.c7 -> {
                     val i = Intent(this@AddBook, catagory::class.java)
                     i.putExtra("s", "Romantic")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
+
                 R.id.ongoin -> {
                     val i = Intent(this@AddBook, Ongoing::class.java)
                     i.putExtra("User", email)

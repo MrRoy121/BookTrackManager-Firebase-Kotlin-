@@ -186,56 +186,56 @@ class AddBook : AppCompatActivity() {
                 }
 
                 R.id.c8 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "book")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c1 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Comedy")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c2 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Thriller")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c3 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Horror")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c4 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Biography")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c5 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Cooking Book")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c6 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Science Fiction")
                     i.putExtra("User", email)
                     startActivity(i)
                 }
 
                 R.id.c7 -> {
-                    val i = Intent(this@AddBook, catagory::class.java)
+                    val i = Intent(this@AddBook, Catagory::class.java)
                     i.putExtra("s", "Romantic")
                     i.putExtra("User", email)
                     startActivity(i)

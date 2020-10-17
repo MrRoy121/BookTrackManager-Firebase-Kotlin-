@@ -2,7 +2,6 @@ package com.example.booktrackmanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -46,18 +45,24 @@ class MainActivity : AppCompatActivity() {
             val email1 = username.text.toString()
             val password1 = password.text.toString()
             if (username.text.isEmpty() && password.text.isEmpty()) {
-                Toast.makeText(this@MainActivity, "All Fields Are Required!!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "All Fields Are Required!!", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 fauth.signInWithEmailAndPassword(email1, password1)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this@MainActivity, "Logged In Successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Logged In Successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             val intent = Intent(this@MainActivity, AddBook::class.java)
                             intent.putExtra("User", email1)
                             startActivity(intent)
                             finish()
                         } else {
-                            Toast.makeText(this@MainActivity, "Login Failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@MainActivity, "Login Failed", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
             }
